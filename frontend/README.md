@@ -1,9 +1,9 @@
-<h1 align="center">MedicoAssist 👨‍⚕️</h1>
+<h1 align="center">DiseasePredictor 👨‍⚕️</h1>
 <p align="center">
-    <a href="https://medicoassist.netlify.app/">View Website</a>
+    <a href="https://DiseasePredictor.netlify.app/">View Website</a>
 </p>
-<p align="center"><a href="https://medicoassist.netlify.app/"><img src="./src/images/homeimagereadme.png" width="700"></a></p>
-<p align="center">MedicoAssist is a device which can be used to collect symptoms from the patient and predict the disease. It will also help patients to book an appointment based on their disease severity. We have used Support Vector Classifier from the sklearn library in Python to create Hyperplanes to classify a disease based on the symptoms.
+<p align="center"><a href="https://DiseasePredictor.netlify.app/"><img src="./src/images/homeimagereadme.png" width="700"></a></p>
+<p align="center">DiseasePredictor is a device which can be used to collect symptoms from the patient and predict the disease. It will also help patients to book an appointment based on their disease severity. We have used Support Vector Classifier from the sklearn library in Python to create Hyperplanes to classify a disease based on the symptoms.
 </p>
 
 ## Technologies Used

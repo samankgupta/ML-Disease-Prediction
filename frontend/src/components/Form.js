@@ -8,7 +8,7 @@ export default function Example() {
   const [symptomData, setSymptomData] = React.useState([]);
   const [locationData, setLocationData] = React.useState([]);
   const [location, setLocation] = React.useState("");
-  const [disease, setDisease] = React.useState("");
+  const [disease, setDisease] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
 
   async function getSymptoms() {
@@ -53,7 +53,7 @@ export default function Example() {
     e.preventDefault();
     let postData = {
       symptoms: [],
-    //   location: location,
+      //   location: location,
     };
     symptoms.map((sym) =>
       sym.name !== "" ? postData.symptoms.push(sym.name) : ""
@@ -108,57 +108,55 @@ export default function Example() {
         id="modal"
         className="bg-transparent z-0 relative w-screen h-screen"
       >
-        <div className="p-6 flex justify-center items-center fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 transition-opacity duration-300 opacity-0">
-          <div className="bg-white rounded-lg md:w-2/3 lg:w-1/3 relative">
+        <div className="py-12 px-4 flex justify-center items-start fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 overflow-y-auto">
+          <div className="bg-white rounded-lg w-full max-w-2xl relative p-6">
             <div>
-              <div className="px-7 pt-6 pb-2 grid grid-cols-2">
-                <h1 className="font-semibold text-left">Predicted Disease</h1>
+              <div className="grid grid-cols-2 mb-4">
+                <h1 className="font-semibold text-left">Predicted Diseases</h1>
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Multiplication_Sign.svg/1024px-Multiplication_Sign.svg.png"
                   alt="Close"
                   className="w-5 ml-auto cursor-pointer"
                   onClick={() => modalClose("modal")}
-                ></img>
+                />
               </div>
-              {disease !== "" ? (
-                <div className="overflow-y-auto  mx-7">
-                  <h1 className="text-lg bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center my-4">
-                    <span className="text-black font-normal">
-                      As per our prediction model, you are likely to have <br />
-                    </span>
-                    {disease.disease}.
-                  </h1>
-                  {/* <h1 className="text-lg text-black font-normal text-center mt-4">
-                    {disease.description}
-                  </h1>
-                  <h1 className="text-lg text-black font-normal text-center mt-4">
-                    {disease.precaution}
-                  </h1> */}
+
+              {Array.isArray(disease) && disease.length > 0 ? (
+                <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2">
+                  {disease.map((item, index) => (
+                    <div
+                      key={index}
+                      className="p-4 border rounded-lg shadow-sm bg-gray-50"
+                    >
+                      <h2 className="text-lg font-bold text-green-700 mb-2">
+                        {index + 1}. {item.disease} 
+                      </h2>
+                      <p className="text-sm text-gray-700 mb-2">
+                        <strong>Description:</strong> {item.description}
+                      </p>
+                      <div>
+                        <strong className="text-sm text-gray-800">
+                          Precautions:
+                        </strong>
+                        <ul className="list-disc list-inside text-sm text-gray-600 mt-1">
+                          {item.precautions?.map((precaution, pIdx) => (
+                            <li key={pIdx}>{precaution}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : (
-                ""
+                <p className="text-center text-gray-500 px-7 pb-6">
+                  No prediction results available.
+                </p>
               )}
-              {/* <div className="overflow-y-auto mb-8 mx-6">
-                <h1 className="text-xl text-black font-semibold text-center my-6">
-                  Do you want to consult a doctor?
-                </h1>
-                <button
-                  onClick={handleYes}
-                  className="text-white rounded-md px-5 py-2 bg-gradient-to-r from-green-600 to-green-300 hover:from-green-700 hover:to-green-500 mr-8"
-                >
-                  YES
-                </button>
-                <button
-                  onClick={() => modalClose("modal")}
-                  className="text-white rounded-md px-5 py-2 bg-gradient-to-r from-green-600 to-green-300 hover:from-green-700 hover:to-green-500"
-                >
-                  NO
-                </button>
-              </div> */}
             </div>
           </div>
         </div>
       </dialog>
+
       <dialog
         id="doctormodal"
         className="bg-transparent z-0 relative w-screen h-screen"
@@ -201,7 +199,7 @@ export default function Example() {
                 <a href="/">
                   <img
                     src={logo}
-                    alt="MedicoAssist Logo"
+                    alt="DiseasePredictor Logo"
                     className="h-24 filter drop-shadow hover:drop-shadow-lg mx-auto mt-8"
                   />
                 </a>
